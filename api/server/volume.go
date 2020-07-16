@@ -597,6 +597,16 @@ func getVolumeUpdateSpec(spec *api.VolumeSpec, vol *api.Volume) *api.VolumeSpecU
 			ExportSpec: spec.ExportSpec,
 		}
 	}
+	if spec.MountOptions != nil {
+		newSpec.MountOpt = &api.VolumeSpecUpdate_MountOptSpec{
+			MountOptSpec: spec.MountOptions,
+		}
+	}
+	if spec.Sharedv4ClientMountOptions != nil {
+		newSpec.Sharedv4ClientMountOpt = &api.VolumeSpecUpdate_Sharedv4ClientMountOptSpec{
+			Sharedv4ClientMountOptSpec: spec.Sharedv4ClientMountOptions,
+		}
+	}
 
 	if spec.FpPreference != vol.Spec.FpPreference {
 		newSpec.FastpathOpt = &api.VolumeSpecUpdate_Fastpath{

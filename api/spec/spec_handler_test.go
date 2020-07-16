@@ -418,3 +418,22 @@ func TestMountOptions(t *testing.T) {
 	_, ok = spec.MountOptions.Options["k3"]
 	require.False(t, ok)
 }
+
+func TestSharedv4ClientMountOptions(t *testing.T) {
+	testSpecOptString(t, api.SpecSharedv4ClientMountOptions, "k")
+
+	spec := testSpecFromString(t, api.SpecRack, "ignore")
+	require.Nil(t, spec.MountOptions)
+
+	spec = testSpecFromString(t, api.SpecSharedv4ClientMountOptions, "k1;k2:v2")
+	require.NotNil(t, spec.Sharedv4ClientMountOptions)
+	require.Equal(t, len(spec.Sharedv4ClientMountOptions.Options), 2)
+	val, ok := spec.Sharedv4ClientMountOptions.Options["k1"]
+	require.True(t, ok)
+	require.Equal(t, val, "")
+	val, ok = spec.Sharedv4ClientMountOptions.Options["k2"]
+	require.True(t, ok)
+	require.Equal(t, val, "v2")
+	_, ok = spec.Sharedv4ClientMountOptions.Options["k3"]
+	require.False(t, ok)
+}

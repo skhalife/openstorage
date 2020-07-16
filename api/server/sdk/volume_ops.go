@@ -836,6 +836,13 @@ func (s *VolumeServer) mergeVolumeSpecs(vol *api.VolumeSpec, req *api.VolumeSpec
 		spec.MountOptions = vol.GetMountOptions()
 	}
 
+	// Sharedv4ClientMountOptions
+	if req.GetSharedv4ClientMountOptSpec() != nil {
+		spec.Sharedv4ClientMountOptions = req.GetSharedv4ClientMountOptSpec()
+	} else {
+		spec.Sharedv4ClientMountOptions = vol.GetSharedv4ClientMountOptions()
+	}
+
 	return spec
 }
 
