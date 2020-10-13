@@ -1,4 +1,6 @@
-# KubeCon Europe 2020 Open Storage with KinD & Actions Demo
+# KubeCon Europe 2020 & GitHub DevOps Demo Day Oct 16
+
+## Open Storage with KinD & Actions Demo 
 Thanks everyone for attending out KubeCon Session.
 Check out our demo [slides](demo/Kind-ly_Validating_your_K8s_Apps_Automatically_per_PR.pdf):
 [![ppt](demo/ppt-screenshot.png)](demo/Kind-ly_Validating_your_K8s_Apps_Automatically_per_PR.pdf)
