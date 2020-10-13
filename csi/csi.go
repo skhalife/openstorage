@@ -124,7 +124,7 @@ func (s *OsdCsiServer) getConn() (*grpc.ClientConn, error) {
 func (s *OsdCsiServer) setupContextWithToken(ctx context.Context, csiSecrets map[string]string) context.Context {
 	if token, ok := csiSecrets[authsecrets.SecretTokenKey]; ok {
 		md := metadata.New(map[string]string{
-			"authorization": "bearer=" + token,
+			"authorization": "bearer " + token,
 		})
 
 		return metadata.NewOutgoingContext(ctx, md)
