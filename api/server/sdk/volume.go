@@ -83,7 +83,7 @@ func (s *VolumeServer) checkAccessForVolumeId(
 	if err != nil {
 		return err
 	}
-	if !resp.GetVolume().IsPermitted(ctx, accessType) {
+	if resp.GetVolume().IsPermitted(ctx, accessType) {
 		return status.Errorf(codes.PermissionDenied, "Access denied to volume %v", resp.GetVolume().GetId())
 	}
 	return nil
