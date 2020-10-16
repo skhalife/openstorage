@@ -46,7 +46,7 @@ spec:
       #   - name: ghpkgcred
       containers:
         - name: osd
-          image: OSD_DEMO_IMAGE
+          image: ghcr.io/skhalife/openstorage-pr-test:OSD_DEMO_IMAGE_TAG
           imagePullPolicy: IfNotPresent    
           args:
               [
