@@ -46,8 +46,7 @@ spec:
       #   - name: ghpkgcred
       containers:
         - name: osd
-          # image: quay.io/ggriffiths/osd:latest
-          image: ghcr.io/skhalife/openstorage:OSD_DEMO_IMAGE_TAG
+          image: OSD_DEMO_IMAGE
           imagePullPolicy: IfNotPresent    
           args:
               [
