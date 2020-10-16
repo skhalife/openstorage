@@ -22,6 +22,7 @@ import (
 
 	csi "github.com/container-storage-interface/spec/lib/go/csi"
 	"github.com/libopenstorage/openstorage/pkg/options"
+	"github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
@@ -108,7 +109,7 @@ func (s *OsdCsiServer) getConn() (*grpc.ClientConn, error) {
 	defer s.mu.Unlock()
 	if s.conn == nil {
 		var err error
-		fmt.Println("Connecting to", s.sdkUds)
+		logrus.Infof("Connecting to %s", s.sdkUds)
 		s.conn, err = grpcserver.Connect(
 			s.sdkUds,
 			[]grpc.DialOption{grpc.WithInsecure()})
@@ -119,12 +120,12 @@ func (s *OsdCsiServer) getConn() (*grpc.ClientConn, error) {
 	return s.conn, nil
 }
 
-// Gets token from the secrets. In Kubernetes, the side car containers copy
-// the contents of a K8S Secret map into the Secrets section of the CSI call.
+// setupContextWithToken gets the auth token from a k8s secret. In Kubernetes, the sidecar
+// containers copy the contents of a K8S Secret map into the Secrets section of the CSI call.
 func (s *OsdCsiServer) setupContextWithToken(ctx context.Context, csiSecrets map[string]string) context.Context {
 	if token, ok := csiSecrets[authsecrets.SecretTokenKey]; ok {
 		md := metadata.New(map[string]string{
-			"authorization": "bearer " + token,
+			"authorization": "bearer=" + token,
 		})
 
 		return metadata.NewOutgoingContext(ctx, md)

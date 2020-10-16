@@ -392,7 +392,7 @@ func (s *OsdCsiServer) CreateVolume(
 	volumes := api.NewOpenStorageVolumeClient(conn)
 
 	// Create volume
-	var newVolumeId string
+	var newVolumeID string
 	if source.Parent == "" {
 		spec, err := resolveSpecFromCSI(spec, req)
 		if err != nil {
@@ -407,7 +407,7 @@ func (s *OsdCsiServer) CreateVolume(
 		if err != nil {
 			return nil, err
 		}
-		newVolumeId = createResp.VolumeId
+		newVolumeID = createResp.VolumeId
 	} else {
 		cloneResp, err := volumes.Clone(ctx, &api.SdkVolumeCloneRequest{
 			Name:     req.GetName(),
@@ -416,12 +416,12 @@ func (s *OsdCsiServer) CreateVolume(
 		if err != nil {
 			return nil, err
 		}
-		newVolumeId = cloneResp.VolumeId
+		newVolumeID = cloneResp.VolumeId
 	}
 
 	// Get volume information
 	inspectResp, err := volumes.Inspect(ctx, &api.SdkVolumeInspectRequest{
-		VolumeId: newVolumeId,
+		VolumeId: newVolumeID,
 	})
 	if err != nil {
 		return nil, err
