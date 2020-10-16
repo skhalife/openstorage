@@ -4,3 +4,5 @@ MAINTAINER gou@portworx.com
 EXPOSE 9005 9100 9110
 ADD _tmp/osd /
 ENTRYPOINT ["/osd"]
+
+LABEL org.opencontainers.image.source https://github.com/skhalife/openstorage
