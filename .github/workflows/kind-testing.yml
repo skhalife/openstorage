@@ -65,7 +65,7 @@ jobs:
           
     - name: Start openstorage
       run: |
-        sed -i 's/OSD_DEMO_IMAGE_TAG/'"$TEST_IMAGE_ID"'/g' demo/setup/osd.yaml
+        sed -i "s/OSD_DEMO_IMAGE_TAG/$TEST_IMAGE_ID/g" demo/setup/osd.yaml
         kubectl -n kube-system apply -f demo/setup
 
     - name: Environment setup check
