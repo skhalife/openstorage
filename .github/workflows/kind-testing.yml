@@ -31,10 +31,10 @@ jobs:
     - name: Push image
       run: |
         
-        echo IMAGE_ID=$IMAGE_ID
+        echo TEST_IMAGE_ID=$TEST_IMAGE_ID
 
-        docker tag $OSD_IMAGE $IMAGE_ID
-        docker push $IMAGE_ID
+        docker tag $OSD_IMAGE $TEST_IMAGE_ID
+        docker push $TEST_IMAGE_ID
   
   # KinD Cluster Creation
   test:
