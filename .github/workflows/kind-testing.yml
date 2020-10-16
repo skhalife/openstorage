@@ -10,6 +10,8 @@ on:
 env:
   # TODO: Change variable to your image's name.
   OSD_IMAGE: quay.io/openstorage/osd
+  TEST_IMAGE_ID: ghcr.io/skhalife/openstorage-pr-test:${{ github.run_id }}
+  RUN_ID: ${{ github.run_id }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,12 +31,11 @@ jobs:
 
     - name: Push image
       run: |
-        IMAGE_ID=ghcr.io/skhalife/openstorage
+        
+        echo TEST_IMAGE_ID=$TEST_IMAGE_ID
 
-        echo IMAGE_ID=$IMAGE_ID
-
-        docker tag $OSD_IMAGE $IMAGE_ID:latest
-        docker push $IMAGE_ID:latest
+        docker tag $OSD_IMAGE $TEST_IMAGE_ID
+        docker push $TEST_IMAGE_ID
   
   # KinD Cluster Creation
   test:
@@ -65,6 +66,7 @@ jobs:
           
     - name: Start openstorage
       run: |
+        sed -i "s/OSD_DEMO_IMAGE_TAG/$RUN_ID/g" demo/setup/osd.yaml
         kubectl -n kube-system apply -f demo/setup
 
     - name: Environment setup check
@@ -89,3 +91,4 @@ jobs:
       run: |
         echo "Running tests:"
         ./demo/test.sh
+        
